@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace InventoryManagement.Models
 {
-    public class Collection
+    public class Collection:BaseEntity
     {
         [Key]
         public Guid Id { get; set; }

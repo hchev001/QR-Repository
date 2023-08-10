@@ -18,7 +18,7 @@ namespace InventoryManagement.Services
             try
             {
                 await _db.Users.AddAsync(user);
-                await _db.SaveChangesAsync();
+                _db.SaveChanges();
                 return await _db.Users.FindAsync(user.Id);
             }
             catch (Exception ex)
@@ -39,7 +39,7 @@ namespace InventoryManagement.Services
                 }
 
                 _db.Users.Remove(user);
-                await _db.SaveChangesAsync();
+                _db.SaveChanges();
 
                 return (true, "User deleted");
             }
@@ -78,7 +78,7 @@ namespace InventoryManagement.Services
             try
             {
                 _db.Entry(user).State = EntityState.Modified;
-                await _db.SaveChangesAsync();
+                _db.SaveChanges();
                 return user;
             }
             catch (Exception ex)

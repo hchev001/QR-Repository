@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace InventoryManagement.Models
 {
-    public class Asset
+    public class Asset:BaseEntity
     {
         [Key]
         public Guid Id { get; set; }

@@ -19,7 +19,7 @@ namespace InventoryManagement.Services
             try
             {
                 await _db.Collections.AddAsync(collection);
-                await _db.SaveChangesAsync();
+                _db.SaveChanges();
                 return await _db.Collections.FindAsync(collection.Id);
             }
             catch (Exception ex)
@@ -40,7 +40,7 @@ namespace InventoryManagement.Services
                 }
 
                 _db.Collections.Remove(collection);
-                await _db.SaveChangesAsync();
+                _db.SaveChanges();
 
                 return (true, "Asset got deleted");
             }
@@ -79,7 +79,7 @@ namespace InventoryManagement.Services
             try
             {
                 _db.Entry(collection).State = EntityState.Modified;
-                await _db.SaveChangesAsync();
+                _db.SaveChanges();
                 return collection;
             }
             catch (Exception ex)
