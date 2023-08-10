@@ -14,12 +14,21 @@ namespace InventoryManagement.Services
             _db = db;
 		}
 
-        public Task<Collection> AddCollection()
+        public async Task<Collection> AddCollectionAsync(Collection collection)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _db.Collections.AddAsync(collection);
+                await _db.SaveChangesAsync();
+                return await _db.Collections.FindAsync(collection.Id);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
-        public async Task<(bool, string)> DeleteCollection(Collection collection)
+        public async Task<(bool, string)> DeleteCollectionAsync(Collection collection)
         {
             try
             {
@@ -41,7 +50,7 @@ namespace InventoryManagement.Services
             }
         }
 
-        public async Task<Collection> GetCollection(Guid id)
+        public async Task<Collection> GetCollectionAsync(Guid id)
         {
             try
             {
@@ -65,7 +74,7 @@ namespace InventoryManagement.Services
             }
         }
 
-        public async Task<Collection> UpdateCollection(Collection collection)
+        public async Task<Collection> UpdateCollectionAsync(Collection collection)
         {
             try
             {
