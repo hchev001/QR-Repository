@@ -18,8 +18,24 @@ namespace InventoryManagement.Models
         public string Role { get; set; } = string.Empty;
 
         // Foreign key for the collections this user has access to
-        public ICollection<Collection> OwnedCollections { get; set; }
+        public ICollection<Collection>? OwnedCollections { get; set; }
         //public List<Collection> OwnedCollections { get; set; }
+
+        public User(NewUserRequest user)
+        {
+            FirstName = user.FirstName;
+            LastName = user.LastName;
+            Email = user.Email;
+            Password = "pass12345";
+            OrgId = user.OrgId is null ? "" : user.OrgId;
+            PicturePath = user.PicturePath is null ? "" : user.PicturePath;
+            OwnedCollections = null;
+        }
+
+        public User()
+        {
+
+        }
     }
 }
 

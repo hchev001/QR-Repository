@@ -6,7 +6,7 @@ using InventoryManagement.Models;
 
 namespace InventoryManagement.Controllers
 {
-    
+
     [Route("api/[controller]")]
     public class UserController : Controller
     {
@@ -46,21 +46,21 @@ namespace InventoryManagement.Controllers
 
         // POST api/values
         [HttpPost]
-        public async Task<ActionResult<User>> AddUser(User user)
+        public async Task<ActionResult<User>> AddUser([FromBody] NewUserRequest user)
         {
-            var dbUser = await _userService.AddUserAsync(user);
+            var dbUser = await _userService.AddUserAsync(new Models.User(user));
 
             if (dbUser is null)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            return CreatedAtAction("GetUser", new { id = dbUser.Id }, user);
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(Guid id, User user)
+        public async Task<IActionResult> UpdateUser([FromBody] Guid id, [FromBody] User user)
         {
             if (id != user.Id)
             {
