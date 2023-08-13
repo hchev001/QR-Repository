@@ -1,8 +1,4 @@
-﻿
-
-using System.IdentityModel.Tokens.Jwt;
-
-namespace InventoryManagement.Models
+﻿namespace InventoryManagement.Models
 {
     public class UserDtoRequest
     {

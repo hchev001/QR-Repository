@@ -30,11 +30,9 @@ namespace InventoryManagement.Controllers
 
 
         [HttpPost("register")]
-        public async Task<ActionResult<UserDtoResponse>> Register(UserDtoRequest request)
+        public async Task<ActionResult<UserDtoResponse>> Register([FromBody] RegisterRequest request)
         {
 
-            // use [FromBody] string varName to indicate the property is from the body
-            // without the use of a DTO or class
             if (string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Password))
             {
                 return Problem("Missing details");
@@ -59,21 +57,21 @@ namespace InventoryManagement.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(UserDtoRequest request)
+        public async Task<ActionResult<AuthenticateResponse>> Login([FromBody] AuthenticateRequest request)
         {
-            if (string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Password))
+            if (string.IsNullOrEmpty(request.email) || string.IsNullOrEmpty(request.password))
             {
                 return Problem();
             }
 
-            var dbUser = await _db.Users.FirstOrDefaultAsync(x => x.Email == request.Email);
+            var dbUser = await _db.Users.FirstOrDefaultAsync(x => x.Email == request.email);
 
             if (dbUser is null)
             {
                 return BadRequest("Wrong Email/Password");
             }
 
-            if (!BCrypt.Net.BCrypt.Verify(request.Password, dbUser.Password))
+            if (!BCrypt.Net.BCrypt.Verify(request.password, dbUser.Password))
             {
                 return BadRequest("Wrong Email/Password");
             }
@@ -85,9 +83,7 @@ namespace InventoryManagement.Controllers
                 return Problem("Error logging in");
             }
 
-            var t = new { FirstName = dbUser.FirstName, token = token };
-
-            return Ok(t);
+            return Ok(new AuthenticateResponse(dbUser, token));
         }
 
         private JwtSecurityToken? GenerateJwtToken(User user)
