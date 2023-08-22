@@ -99,7 +99,7 @@ namespace InventoryManagement.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CreatedAt", "Email", "FirstName", "LastName", "OrgId", "Password", "PicturePath", "Role", "UpdatedAt" },
-                values: new object[] { new Guid("351ec5aa-4200-4c6d-aedd-4b3de561651a"), null, "admin@admin.com", "Ronald", "McDonald", "P0995800", "$2a$11$51hMoq/PvwIbSiLYS24LmOQYfZpAWar0EH11y6aixbJibni50ZEs6", "", "Admin", null });
+                values: new object[] { new Guid("351ec5aa-4200-4c6d-aedd-4b3de561651a"), null, "admin@admin.com", "Ronald", "McDonald", "P0995800", "$2a$11$t6Mo/hupJrkBPTpkcbHnmeuPXFj9TdW4.8nFa2cuc2KQFUYp/Ha2C", "", "Admin", null });
 
             migrationBuilder.InsertData(
                 table: "CollectionUser",

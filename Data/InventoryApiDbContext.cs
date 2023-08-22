@@ -75,7 +75,7 @@ namespace InventoryManagement.Data
             user.PicturePath = "";
             user.FirstName = "Ronald";
             user.LastName = "McDonald";
-            user.Password = "$2a$11$51hMoq/PvwIbSiLYS24LmOQYfZpAWar0EH11y6aixbJibni50ZEs6"; // hashed pass12345
+            user.Password = "$2a$11$t6Mo/hupJrkBPTpkcbHnmeuPXFj9TdW4.8nFa2cuc2KQFUYp/Ha2C"; // hashed pass12345
             user.Role = "Admin";
             user.OrgId = "P0995800";
 
