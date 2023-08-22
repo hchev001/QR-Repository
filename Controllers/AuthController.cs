@@ -4,6 +4,7 @@ using System.Text;
 using InventoryManagement.Data;
 using InventoryManagement.Models;
 using InventoryManagement.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -12,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace InventoryManagement.Controllers
 {
+    [AllowAnonymous]
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
@@ -38,7 +40,7 @@ namespace InventoryManagement.Controllers
                 return Problem("Missing details");
             }
 
-            string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password, _config["SALT_HASH"]);
 
             var user = new User();
             user.Email = request.Email;
@@ -95,7 +97,7 @@ namespace InventoryManagement.Controllers
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
-            var secret = _config["AppSettings:Secret"];
+            var secret = _config["JWT_SECRET"];
 
             if (secret is null)
             {

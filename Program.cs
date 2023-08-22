@@ -1,13 +1,18 @@
 using InventoryManagement.Data;
 using InventoryManagement.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
+DotNetEnv.Env.Load();
+
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<InventoryApiDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<InventoryApiDbContext>(options => {
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    var db_pass = builder.Configuration["DB_CONNECTION_PASS"];
+    options.UseNpgsql($"{connectionString}{db_pass};");
+});
 
 builder.Services
     .AddAuthentication()
