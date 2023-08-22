@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace InventoryManagement.Migrations
 {
     [DbContext(typeof(InventoryApiDbContext))]
-    [Migration("20230822155720_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230822214813_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -90,6 +90,10 @@ namespace InventoryManagement.Migrations
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -102,6 +106,7 @@ namespace InventoryManagement.Migrations
                         {
                             Id = new Guid("b257b0a2-acff-4633-8c46-4f3c5d712814"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Mickey Ds Collection",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
@@ -158,7 +163,7 @@ namespace InventoryManagement.Migrations
                             FirstName = "Ronald",
                             LastName = "McDonald",
                             OrgId = "P0995800",
-                            Password = "$2a$11$51hMoq/PvwIbSiLYS24LmOQYfZpAWar0EH11y6aixbJibni50ZEs6",
+                            Password = "$2a$11$t6Mo/hupJrkBPTpkcbHnmeuPXFj9TdW4.8nFa2cuc2KQFUYp/Ha2C",
                             PicturePath = "",
                             Role = "Admin"
                         });

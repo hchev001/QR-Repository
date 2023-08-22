@@ -8,13 +8,21 @@ namespace InventoryManagement.Models
         [Key]
         public Guid Id { get; set; }
 
+        public String Name { get; set; }
+
         //Foreign key for owners of this collection
         //public List<User> Owners { get; set; }
         public ICollection<User> Owners { get; set; }
 
         // Foreign key for the related assets
         //public List<Asset> Assets { get; set; }
-        public ICollection<Asset> Assets { get; set; }
+        public ICollection<Asset>? Assets { get; set; }
     }
+
+    public class CollectionRequest
+    {
+       public required string Name { get; set; }
+    }
+
 }
 

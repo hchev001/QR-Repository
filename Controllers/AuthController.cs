@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace InventoryManagement.Controllers
 {
+    [Produces("application/json")]
     [AllowAnonymous]
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
@@ -42,11 +43,13 @@ namespace InventoryManagement.Controllers
 
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password, _config["SALT_HASH"]);
 
-            var user = new User();
-            user.Email = request.Email;
-            user.Password = passwordHash;
-            user.FirstName = user.FirstName;
-            user.LastName = user.LastName;
+            var user = new User
+            {
+                Email = request.Email,
+                Password = passwordHash,
+                FirstName = request.FirstName ?? "",
+                LastName = request.LastName ?? ""
+            };
 
             var dbUser = await _userService.AddUserAsync(user);
 

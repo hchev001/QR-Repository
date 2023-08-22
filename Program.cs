@@ -18,6 +18,7 @@ builder.Services
     .AddAuthentication()
     .AddJwtBearer(options =>
     {
+        var secret = builder.Configuration["JWT_SECRET"] ?? throw new Exception("jwt secret missing");
         options.SaveToken = true;
         if (builder.Environment.IsDevelopment())
         {
@@ -33,9 +34,9 @@ builder.Services
             {
                 return expires == null || expires > DateTime.UtcNow;
             },
-            ValidAudience = "your domain or site",
-            ValidIssuer = "your domain or site",
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Your secret code"))
+            ValidAudience = "InventoryManagement",
+            ValidIssuer = "InventoryManagement",
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret))
         };
     });
 
@@ -56,8 +57,6 @@ builder.Services.AddSwaggerGen();
 
 
 
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -67,9 +66,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+//app.UseAuthorization();
 
 app.MapControllers();
 

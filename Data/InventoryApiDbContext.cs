@@ -88,11 +88,13 @@ namespace InventoryManagement.Data
         private static Collection[] SeedCollections()
         {
             var initialCollections = new Collection[1];
-            var col = new Collection();
-
-            col.Id = new Guid("b257b0a2-acff-4633-8c46-4f3c5d712814");
-            col.CreatedAt = new DateTime();
-            col.UpdatedAt = new DateTime();
+            var col = new Collection
+            {
+                Id = new Guid("b257b0a2-acff-4633-8c46-4f3c5d712814"),
+                CreatedAt = new DateTime(),
+                UpdatedAt = new DateTime(),
+                Name = "Mickey Ds Collection"
+            };
 
             initialCollections[0] = col;
             return initialCollections;
