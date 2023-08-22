@@ -34,7 +34,14 @@ namespace InventoryManagement.Migrations
 
                     b.HasIndex("OwnersId");
 
-                    b.ToTable("CollectionUser");
+                    b.ToTable("CollectionUser", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            OwnedCollectionsId = new Guid("b257b0a2-acff-4633-8c46-4f3c5d712814"),
+                            OwnersId = new Guid("351ec5aa-4200-4c6d-aedd-4b3de561651a")
+                        });
                 });
 
             modelBuilder.Entity("InventoryManagement.Models.Asset", b =>
@@ -86,6 +93,14 @@ namespace InventoryManagement.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Collections");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("b257b0a2-acff-4633-8c46-4f3c5d712814"),
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("InventoryManagement.Models.User", b =>
@@ -131,6 +146,19 @@ namespace InventoryManagement.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("351ec5aa-4200-4c6d-aedd-4b3de561651a"),
+                            Email = "admin@admin.com",
+                            FirstName = "Ronald",
+                            LastName = "McDonald",
+                            OrgId = "P0995800",
+                            Password = "$2a$11$51hMoq/PvwIbSiLYS24LmOQYfZpAWar0EH11y6aixbJibni50ZEs6",
+                            PicturePath = "",
+                            Role = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("CollectionUser", b =>

@@ -36,6 +36,17 @@ namespace InventoryManagement.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Asset>().HasOne(a => a.collection).WithMany(c => c.Assets).HasForeignKey(a => a.CollectionId).IsRequired(false);
+
+            builder.Entity<User>().HasMany(s => s.OwnedCollections).WithMany(c => c.Owners).UsingEntity(j =>
+            {
+                j.ToTable("CollectionUser");
+                j.HasData(
+                    new { OwnedCollectionsId = new Guid("b257b0a2-acff-4633-8c46-4f3c5d712814"), OwnersId = new Guid("351ec5aa-4200-4c6d-aedd-4b3de561651a") }
+                );
+            });
+
+            builder.Entity<User>().HasData(SeedUsers());
+            builder.Entity<Collection>().HasData(SeedCollections());
         }
 
         private void AddTimeStamps()
@@ -53,5 +64,39 @@ namespace InventoryManagement.Data
                 ((BaseEntity)entity.Entity).UpdatedAt = now;
             }
         }
+
+        private static User[] SeedUsers()
+        {
+            var initialUsers = new User[1];
+
+            var user = new User();
+            user.Id = new Guid("351ec5aa-4200-4c6d-aedd-4b3de561651a");
+            user.Email = "admin@admin.com";
+            user.PicturePath = "";
+            user.FirstName = "Ronald";
+            user.LastName = "McDonald";
+            user.Password = "$2a$11$51hMoq/PvwIbSiLYS24LmOQYfZpAWar0EH11y6aixbJibni50ZEs6"; // hashed pass12345
+            user.Role = "Admin";
+            user.OrgId = "P0995800";
+
+            initialUsers[0] = user;
+
+            return initialUsers;
+
+        }
+
+        private static Collection[] SeedCollections()
+        {
+            var initialCollections = new Collection[1];
+            var col = new Collection();
+
+            col.Id = new Guid("b257b0a2-acff-4633-8c46-4f3c5d712814");
+            col.CreatedAt = new DateTime();
+            col.UpdatedAt = new DateTime();
+
+            initialCollections[0] = col;
+            return initialCollections;
+        }
+
     }
 }

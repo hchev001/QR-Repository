@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace InventoryManagement.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -90,6 +90,21 @@ namespace InventoryManagement.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Collections",
+                columns: new[] { "Id", "CreatedAt", "UpdatedAt" },
+                values: new object[] { new Guid("b257b0a2-acff-4633-8c46-4f3c5d712814"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "CreatedAt", "Email", "FirstName", "LastName", "OrgId", "Password", "PicturePath", "Role", "UpdatedAt" },
+                values: new object[] { new Guid("351ec5aa-4200-4c6d-aedd-4b3de561651a"), null, "admin@admin.com", "Ronald", "McDonald", "P0995800", "$2a$11$51hMoq/PvwIbSiLYS24LmOQYfZpAWar0EH11y6aixbJibni50ZEs6", "", "Admin", null });
+
+            migrationBuilder.InsertData(
+                table: "CollectionUser",
+                columns: new[] { "OwnedCollectionsId", "OwnersId" },
+                values: new object[] { new Guid("b257b0a2-acff-4633-8c46-4f3c5d712814"), new Guid("351ec5aa-4200-4c6d-aedd-4b3de561651a") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Assets_CollectionId",
